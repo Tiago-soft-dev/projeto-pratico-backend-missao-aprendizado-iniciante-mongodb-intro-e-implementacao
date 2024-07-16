@@ -43,7 +43,19 @@ app.get('/livros/:id', async (req,res)=>{
 })
 
 //Implemente um endpoint para atualizar um livro por ID (PUT /livros/:id).
+app.put('/livros/:id', async (req,res)=>{
+    const id = req.params.id
+    const novoItem = req.body
 
+    // const item = await collection.findOne({_id: new ObjectId(id)})
+    await collection.updateOne(
+        {_id: new ObjectId(id)},
+        {$set: novoItem}
+    )
+
+    res.send(novoItem)
+
+})
 
 //Implemente um endpoint para deletar um livro por ID (DELETE /livros/:id).
 
