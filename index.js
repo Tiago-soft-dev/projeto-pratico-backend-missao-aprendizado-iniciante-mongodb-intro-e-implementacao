@@ -1,12 +1,13 @@
 const express=require('express')
 const { MongoClient, ObjectId } = require('mongodb')
 const app=express()
+app.use(express.json())
 
 //configuração BD
 const bdUrl = 'mongodb+srv://admin:WeL94dTtknnEOVJr@cluster0.1b2ewyf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 const dbName = 'mongodb-intro-e-implementacao' 
 
-app.use(express.json())
+
 
 async function main(){
     //conexão BD
@@ -22,7 +23,7 @@ async function main(){
 //Implemente um endpoint para adicionar um novo livro (POST /livros).
 app.post('/livros', async (req,res)=>{
     const novoItem = req.body
-    if (!novoItem || !novoItem.titulo || !novoItem.autor || !novoItem.anoPublicacao){
+    if (!novoItem.titulo || !novoItem.autor || !novoItem.anoPublicacao){
         return res.status(400).send('Dados incompletos')
     }
     await collection.insertOne(novoItem)
