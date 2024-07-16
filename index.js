@@ -1,5 +1,5 @@
 const express=require('express')
-const { MongoClient } = require('mongodb')
+const { MongoClient, ObjectId } = require('mongodb')
 const app=express()
 
 //configuração BD
@@ -36,8 +36,14 @@ app.get('/livros', async (req,res)=>{
 })
 
 //Implemente um endpoint para obter um livro específico por ID (GET /livros/:id).
+app.get('/livros/:id', async (req,res)=>{
+    const id = req.params.id
+    const item = await collection.findOne({_id: new ObjectId(id)})
+    res.send(item)
+})
 
 //Implemente um endpoint para atualizar um livro por ID (PUT /livros/:id).
+
 
 //Implemente um endpoint para deletar um livro por ID (DELETE /livros/:id).
 
