@@ -39,6 +39,9 @@ app.get('/livros', async (req,res)=>{
 app.get('/livros/:id', async (req,res)=>{
     const id = req.params.id
     const item = await collection.findOne({_id: new ObjectId(id)})
+    if(!item){
+        return res.send('Item não encontrado')
+    }
     res.send(item)
 })
 
@@ -58,7 +61,11 @@ app.put('/livros/:id', async (req,res)=>{
 })
 
 //Implemente um endpoint para deletar um livro por ID (DELETE /livros/:id).
-
+app.delete('/livros/:id', async (req,res)=>{
+    const id = req.params.id
+    await collection.deleteOne({_id: new ObjectId(id)})
+    res.send('Item removido com sucesso!')
+})
 
 }
 
